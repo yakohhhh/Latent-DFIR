@@ -1,0 +1,11 @@
+[package]
+name = "latent-output"
+description = "Normalized outputs, reports and the traceability manifest"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]

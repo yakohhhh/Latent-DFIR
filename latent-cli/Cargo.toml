@@ -1,0 +1,16 @@
+[package]
+name = "latent-cli"
+description = "Command line interface for Latent"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "latent"
+path = "src/main.rs"
+
+[dependencies]
+clap.workspace = true

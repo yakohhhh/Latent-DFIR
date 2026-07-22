@@ -1,0 +1,11 @@
+[package]
+name = "latent-source"
+description = "Evidence source access: image formats, partitions, read-only guarantees, hashing"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]

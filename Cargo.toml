@@ -1,0 +1,30 @@
+[workspace]
+resolver = "3"
+members = [
+    "latent-core",
+    "latent-source",
+    "latent-scan",
+    "latent-carve",
+    "latent-template",
+    "latent-timeline",
+    "latent-detect",
+    "latent-output",
+    "latent-cli",
+    "xtask",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "Apache-2.0"
+repository = "https://github.com/yakohhhh/Latent"
+authors = ["Ayman"]
+
+[workspace.dependencies]
+clap = { version = "4.5", features = ["derive"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

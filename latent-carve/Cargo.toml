@@ -1,0 +1,11 @@
+[package]
+name = "latent-carve"
+description = "Extractor interface and per-format record extractors"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]

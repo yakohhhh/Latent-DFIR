@@ -1,0 +1,11 @@
+[package]
+name = "latent-scan"
+description = "Parallel block scanning and multi-pattern signature search"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
