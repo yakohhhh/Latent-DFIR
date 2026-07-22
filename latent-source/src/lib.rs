@@ -15,10 +15,14 @@ mod readonly;
 
 pub mod collection;
 pub mod integrity;
+pub mod partition;
+pub mod window;
 
 pub use error::SourceError;
 pub use integrity::{IntegrityError, VerifiedSource};
+pub use partition::{Partition, PartitionTable, Scheme};
 pub use raw::RawSource;
+pub use window::Window;
 
 pub trait Source: Send + Sync {
     fn size(&self) -> u64;
