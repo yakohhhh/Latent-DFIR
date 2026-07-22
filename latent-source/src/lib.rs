@@ -14,6 +14,7 @@ mod raw;
 mod readonly;
 
 pub mod collection;
+pub mod ewf;
 pub mod integrity;
 pub mod partition;
 pub mod vdisk;
@@ -56,6 +57,7 @@ pub trait Source: Send + Sync {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Format {
     Raw,
+    Ewf,
     Qcow2,
     Vmdk,
     Vhdx,
@@ -65,6 +67,7 @@ impl std::fmt::Display for Format {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(match self {
             Format::Raw => "raw",
+            Format::Ewf => "ewf",
             Format::Qcow2 => "qcow2",
             Format::Vmdk => "vmdk",
             Format::Vhdx => "vhdx",
@@ -84,7 +87,9 @@ pub fn open(path: &Path) -> Result<Box<dyn Source>, SourceError> {
     let n = raw.read_at(0, &mut magic)?;
     let magic = &magic[..n];
 
-    if magic.starts_with(&[0x51, 0x46, 0x49, 0xfb]) {
+    if magic.starts_with(&ewf::MAGIC) {
+        ewf::open(path)
+    } else if magic.starts_with(&[0x51, 0x46, 0x49, 0xfb]) {
         Ok(Box::new(vdisk::Qcow2Source::open(Box::new(raw))?))
     } else if magic.starts_with(b"KDMV") {
         Ok(Box::new(vdisk::VmdkSource::open(Box::new(raw))?))

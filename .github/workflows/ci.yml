@@ -49,11 +49,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
-      # qemu-img builds the virtual-disk fixtures the source tests round-trip;
-      # where it is absent (Windows, macOS) those tests skip themselves.
-      - name: Install qemu-img
+      # libewf turns on the E01 backend; qemu-img builds the virtual-disk
+      # fixtures the source tests round-trip. Where either is absent (Windows,
+      # and libewf on macOS if the tap is down) the crate builds against the
+      # stub and those tests skip themselves.
+      - name: Install libewf and qemu-img (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y qemu-utils
+        run: sudo apt-get update && sudo apt-get install -y libewf-dev qemu-utils
+      - name: Install libewf and qemu-img (macOS)
+        if: runner.os == 'macOS'
+        run: brew install libewf qemu
       - run: cargo test --workspace --all-features --locked
 
   docs:
