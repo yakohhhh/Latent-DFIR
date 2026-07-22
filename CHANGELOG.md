@@ -10,6 +10,7 @@ All notable changes to Latent are documented here. The format follows [Keep a Ch
 - latent-core: tracing-based logging that keeps a machine-readable JSONL audit trail (source open, hashing, phases, close, tool version and command line) strictly apart from the human diagnostic stream, plus a streaming SHA-256 helper and an audit-file digest at close
 - latent-source: the Source abstraction (positioned reads plus size), raw/dd images backed by mmap with a positioned-read fallback, and recursive deterministic enumeration of triage collection directories
 - latent-source: strict read-only opening (O_RDONLY plus a descriptor check on Unix, GENERIC_READ on Windows) and SHA-256 integrity, hashing the source at open and again at close, comparing against an optional expected hash, and aborting with distinct exit codes when the evidence does not match or changes mid-run
+- latent-source: MBR (primary and logical) and GPT (with CRC32 checks) partition parsing, an offset-and-length Window sub-source for targeting a partition or an arbitrary byte range, and a graceful whole-source fallback when there is no usable table
 - Cargo workspace skeleton: core, source, scan, carve, template, timeline, detect, output, cli and xtask crates
 - CLI stub with the planned subcommands (scan, resolve, merge, gaps, report, corpus, verify, triage)
 - CI pipeline: format, lint, tests on Linux/Windows/macOS, docs, dependency audit

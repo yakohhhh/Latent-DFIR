@@ -10,6 +10,7 @@ authors.workspace = true
 
 [dependencies]
 latent-core = { path = "../latent-core", version = "0.1.0" }
+crc32fast = "1"
 memmap2 = "0.9"
 thiserror = "2.0"
 tracing = "0.1"
