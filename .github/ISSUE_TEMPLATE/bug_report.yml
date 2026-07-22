@@ -1,0 +1,43 @@
+name: Bug report
+description: Something crashes, misparses or behaves wrong
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not attach real case evidence to a public issue. Reproduce with synthetic data or describe the input structurally (format, size, how it was produced).
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran and what went wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `latent --version`, or the commit hash.
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Linux
+        - Windows
+        - macOS
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Input format, source size, logs with sensitive parts redacted.
