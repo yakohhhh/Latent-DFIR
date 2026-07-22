@@ -11,10 +11,13 @@ use std::path::{Path, PathBuf};
 
 mod error;
 mod raw;
+mod readonly;
 
 pub mod collection;
+pub mod integrity;
 
 pub use error::SourceError;
+pub use integrity::{IntegrityError, VerifiedSource};
 pub use raw::RawSource;
 
 pub trait Source: Send + Sync {

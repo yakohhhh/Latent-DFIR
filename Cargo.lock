@@ -255,9 +255,11 @@ version = "0.1.0"
 dependencies = [
  "latent-core",
  "memmap2",
+ "rustix",
  "tempfile",
  "thiserror",
  "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
