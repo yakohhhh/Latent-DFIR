@@ -9,3 +9,10 @@ repository.workspace = true
 authors.workspace = true
 
 [dependencies]
+latent-core = { path = "../latent-core" }
+memmap2 = "0.9"
+thiserror = "2.0"
+tracing = "0.1"
+
+[dev-dependencies]
+tempfile = "3"
