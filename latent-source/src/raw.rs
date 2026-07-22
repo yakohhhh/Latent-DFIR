@@ -76,7 +76,7 @@ impl RawSource {
 }
 
 fn open_file(path: &Path) -> Result<(File, u64), SourceError> {
-    let file = File::open(path).map_err(|e| SourceError::io(path, e))?;
+    let file = crate::readonly::open_readonly(path)?;
     let size = file.metadata().map_err(|e| SourceError::io(path, e))?.len();
     Ok((file, size))
 }
