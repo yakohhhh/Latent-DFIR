@@ -1,1 +1,5 @@
 * text=auto eol=lf
+
+# Test fixtures are binary images; never normalize line endings on them.
+*.E01 binary
+*.E02 binary
