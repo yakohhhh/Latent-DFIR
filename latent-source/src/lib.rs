@@ -15,10 +15,15 @@ mod readonly;
 
 pub mod collection;
 pub mod integrity;
+pub mod partition;
+pub mod vdisk;
+pub mod window;
 
 pub use error::SourceError;
 pub use integrity::{IntegrityError, VerifiedSource};
+pub use partition::{Partition, PartitionTable, Scheme};
 pub use raw::RawSource;
+pub use window::Window;
 
 pub trait Source: Send + Sync {
     fn size(&self) -> u64;
@@ -51,13 +56,19 @@ pub trait Source: Send + Sync {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Format {
     Raw,
+    Qcow2,
+    Vmdk,
+    Vhdx,
 }
 
 impl std::fmt::Display for Format {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Format::Raw => f.write_str("raw"),
-        }
+        f.write_str(match self {
+            Format::Raw => "raw",
+            Format::Qcow2 => "qcow2",
+            Format::Vmdk => "vmdk",
+            Format::Vhdx => "vhdx",
+        })
     }
 }
 
@@ -68,5 +79,18 @@ pub struct Identity {
 }
 
 pub fn open(path: &Path) -> Result<Box<dyn Source>, SourceError> {
-    Ok(Box::new(RawSource::open(path)?))
+    let raw = RawSource::open(path)?;
+    let mut magic = [0u8; 8];
+    let n = raw.read_at(0, &mut magic)?;
+    let magic = &magic[..n];
+
+    if magic.starts_with(&[0x51, 0x46, 0x49, 0xfb]) {
+        Ok(Box::new(vdisk::Qcow2Source::open(Box::new(raw))?))
+    } else if magic.starts_with(b"KDMV") {
+        Ok(Box::new(vdisk::VmdkSource::open(Box::new(raw))?))
+    } else if magic.starts_with(b"vhdxfile") {
+        Ok(Box::new(vdisk::VhdxSource::open(Box::new(raw))?))
+    } else {
+        Ok(Box::new(raw))
+    }
 }

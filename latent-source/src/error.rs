@@ -27,6 +27,20 @@ pub enum SourceError {
     #[error("{path}: opened handle is not read-only")]
     NotReadOnly { path: PathBuf },
 
+    #[error("{path}: malformed {format} image: {detail}")]
+    Malformed {
+        path: PathBuf,
+        format: &'static str,
+        detail: String,
+    },
+
+    #[error("{path}: {format} image is not supported: {detail}")]
+    Unsupported {
+        path: PathBuf,
+        format: &'static str,
+        detail: String,
+    },
+
     #[error("{path}: {source}")]
     Io {
         path: PathBuf,

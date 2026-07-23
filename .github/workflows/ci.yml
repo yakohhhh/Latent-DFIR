@@ -49,6 +49,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
+      # qemu-img builds the virtual-disk fixtures the source tests round-trip;
+      # where it is absent (Windows, macOS) those tests skip themselves.
+      - name: Install qemu-img
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y qemu-utils
       - run: cargo test --workspace --all-features --locked
 
   docs:
