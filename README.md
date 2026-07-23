@@ -67,7 +67,7 @@ Input formats: raw/dd, E01/EWF, VMDK, VHDX, QCOW2, collection directories (KAPE,
 
 ## Building from source
 
-Requires a stable Rust toolchain (1.85 or later).
+Requires a stable Rust toolchain (1.88 or later).
 
 ```
 git clone https://github.com/yakohhhh/Latent.git

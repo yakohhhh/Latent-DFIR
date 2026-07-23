@@ -4,7 +4,7 @@ Thanks for taking the time. Latent is at an early stage, so the most useful cont
 
 ## Setup
 
-A stable Rust toolchain (1.85+) is all you need. `rust-toolchain.toml` pins the channel and pulls rustfmt and clippy.
+A stable Rust toolchain (1.88+) is all you need. `rust-toolchain.toml` pins the channel and pulls rustfmt and clippy.
 
 Before pushing, make sure this passes locally:
 
