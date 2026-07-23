@@ -24,6 +24,9 @@ pub enum SourceError {
     #[error("{path}: not a source format we recognise")]
     Unrecognized { path: PathBuf },
 
+    #[error("{path}: opened handle is not read-only")]
+    NotReadOnly { path: PathBuf },
+
     #[error("{path}: {source}")]
     Io {
         path: PathBuf,
@@ -42,9 +45,11 @@ impl SourceError {
 
 impl From<SourceError> for latent_core::FatalError {
     fn from(e: SourceError) -> Self {
+        use latent_core::FatalError as F;
         match e {
-            SourceError::Io { source, .. } => latent_core::FatalError::Io(source),
-            other => latent_core::FatalError::UnusableSource(other.to_string()),
+            SourceError::Io { source, .. } => F::Io(source),
+            e @ SourceError::NotReadOnly { .. } => F::ReadOnlyViolation(e.to_string()),
+            other => F::UnusableSource(other.to_string()),
         }
     }
 }
