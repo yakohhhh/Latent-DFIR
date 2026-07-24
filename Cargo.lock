@@ -224,6 +224,13 @@ checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
 [[package]]
 name = "latent-carve"
 version = "0.1.0"
+dependencies = [
+ "latent-core",
+ "latent-source",
+ "tempfile",
+ "thiserror",
+ "tracing",
+]
 
 [[package]]
 name = "latent-cli"
