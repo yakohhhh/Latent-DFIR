@@ -9,3 +9,12 @@ repository.workspace = true
 authors.workspace = true
 
 [dependencies]
+latent-core = { path = "../latent-core", version = "0.1.0" }
+latent-source = { path = "../latent-source", version = "0.1.0" }
+aho-corasick = "1"
+rayon = "1.10"
+thiserror = "2.0"
+tracing = "0.1"
+
+[dev-dependencies]
+tempfile = "3"
