@@ -5,6 +5,7 @@
 //! The EVTX extractor: chunk, record and file-header carving
 //!
 
+pub mod binxml;
 mod format;
 
 pub use format::{EvtxConfig, FileHeaderMeta};
