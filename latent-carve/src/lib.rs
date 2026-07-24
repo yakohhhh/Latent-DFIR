@@ -13,8 +13,11 @@
 
 #![forbid(unsafe_code)]
 
+pub mod evtx;
+
 mod extractor;
 mod registry;
 
+pub use evtx::{EvtxConfig, EvtxExtractor, FileHeaderMeta};
 pub use extractor::{Carved, Extractor, ExtractorMetadata, Platform, Rejection};
 pub use registry::{Diagnostics, ExtractorStats, Registry, RegistryBuilder};
